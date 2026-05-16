@@ -123,13 +123,33 @@ def show_tables():
             print('Error:', error)
     close()
 
+def get_next_question(question_id=0, quiz_id=1):
+    open()
+
+    query = '''
+        SELECT
+            quiz_content.id,
+            question.question_name,
+            question.correct,
+            question.wrong_1,
+            question.wrong_2,
+            question.wrong_3
+        FROM quiz_content
+        JOIN question ON quiz_content.question_id = question.id
+        WHERE quiz_content.id > ?
+        AND quiz_content.quiz_id = ?
+        ORDER BY quiz_content.id
+        LIMIT 1'''
+    
+    cursor.execute(query, [question_id, quiz_id])
+    result = cursor.fetchone()
+    close()
+    return result
+
+
 
 if __name__ =='__main__':
-    destroy_db()
-    create_tables()
-    add_quises()
-    add_questions()
-    add_links()
-    show_tables()
+
+    print(get_next_question())
 
 
