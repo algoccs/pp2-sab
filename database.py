@@ -147,9 +147,32 @@ def get_next_question(question_id=0, quiz_id=1):
     return result
 
 
+def show(table):
+    query = 'SELECT * FROM ' + table
+    open()
+    cursor.execute(query)
+    print(cursor.fetchall())
+    close()
 
-if __name__ =='__main__':
+def show_tables():
+    show('question')
+    show('quiz')
+    show('quiz_content')
 
-    print(get_next_question())
+def get_quises():
+    open()
+    cursor.execute('SELECT id, name FROM quiz;')
+    result = cursor.fetchall()
+    close()
+    return result
 
 
+def main(): 
+    show_tables()
+    add_links()
+
+    print(get_next_question(2, 1))
+    
+
+if __name__ == "__main__":
+    main()
