@@ -13,15 +13,28 @@ def end_quiz():
 
 def quiz_form():
     # ESTABLECER LA PLANTILLA HTML PARA LA LISTA DE QUISES
-    quises_list = get_quises() #CREARLA EN LA DATABASE 
+    quises_list = get_quises() 
+    options = ''
 
     for id, name in quises_list:
         #construir el formulario con los articulos de la tupla
-        pass
+        options += f'<option value="{id}">{name}</option>\n'
 
-    return quises
+    form_html = f'''
+    <html>
+        <body>
+            <form action="/" method="POST">
+                <select name="quiz">
+                    {options}
+                </select>
+                <p><input type="submit" value="Enviar"></p>
+            </form>
+        </body>
+        </html>'''
+    return form_html
+    
 def index():
-    if request.method = 'GET':
+    if request.method == 'GET':
         start_quiz(-1)
 
         return quiz_form() # esto devuelve la str de la plantilla
