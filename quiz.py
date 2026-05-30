@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, session, request
 from database import get_next_question, get_quises
 
+# SIN PLANTILLA REFACTORIZAR EL CODIGO!!!!!!!!!!!
 
 app = Flask(__name__)
 
