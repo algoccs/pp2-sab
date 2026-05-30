@@ -32,7 +32,7 @@ def quiz_form():
         </body>
         </html>'''
     return form_html
-    
+
 def index():
     if request.method == 'GET':
         start_quiz(-1)
@@ -45,15 +45,22 @@ def index():
     
 
 def test():
+    if 'quiz' not in session:
+        return redirect(url_for('index'))
+
     result = get_next_question(session['prev_question'], session['quiz'])
     if result is None or result == 0:
         return redirect(url_for('result'))
     else:
         session['prev_question'] = result[0]
     
-    return f'{result}'
+    return f'<h1>{result}</h1>'
 
 def result():
+    # Funcion para calculo de estadisticas
+    if 'quiz' not in session:
+        return redirect(url_for('index'))
+
     return 'Aqui se muestra el resultado!'
 
 app.add_url_rule('/', 'index', index, methods=['GET', 'POST'])
